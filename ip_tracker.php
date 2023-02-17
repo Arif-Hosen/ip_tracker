@@ -236,10 +236,6 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
 
 
     <script>
-        // function gett(){
-        //     // const b = document.getElementById('ip-address');
-        //     console.log("hee");
-        // }
         $(document).ready(function() {
             $('#search').click(function() {
                 const ip = $('#ip-address').val();
