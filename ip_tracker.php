@@ -1,3 +1,6 @@
+<!-- https://ipapi.co/103.134.62.89/json/ 
+https://ipapi.co/static/images/flags/us.png (for country flaf image)
+-->
 <?php 
 if($_SERVER['REQUEST_METHOD']=="POST"){
     header("Location:http://localhost/projects/ip_tracker/ip_details.php");
