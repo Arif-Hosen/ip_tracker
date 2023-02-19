@@ -132,24 +132,27 @@
         </div>
     </div>
     <script>
-        // $('#details-list-container').append( $("<li>er</li>"))
+        // get ip value from session storage
         const ip = sessionStorage.getItem('ip');
-        // console.log('d',ip);
-        const url = `https://ipapi.co/${ip}/json/`
+        const url = `https://ipapi.co/${ip}/json/`;
+
+        // api call and append to a container
         let ipDetails = fetch(url)
         .then(res=>res.json())
         .then(data=>{
             $('#ip').text(`IP: ${data.ip}`)
-            $('#details-list-container').append( $(`
+            $('#details-list-container').append( $(` 
+           
+            <p><img src='https://ipapi.co/static/images/flags/${(data.country_code).toLowerCase()}.png'> ${data.country_name}</p>
             <li>City: ${data.city}</li>
             <li>Region: ${data.region}</li>
-            <li>Country: ${data.country_name}</li>
+            <li>Country:${data.country_code}</li>
             <li>Country Area: ${data.country_area}</li>
             <li>Postal Code: ${data.postal}</li>
             <li>Calling Code: ${data.country_calling_code}</li>
             <li>Longitude: ${data.longitude}</li>
             <li>Latitude: ${data.latitude}</li>
-            <li>Org: ${data.org}</li>
+            <li>Org: ${data.org}</li> 
             <li>Hostname: ${data.hostname}</li>
             `))
         });

@@ -1,0 +1,59 @@
+Find the location of an IP and Use Case
+ipapi.co provides the location of an IP address. It is an open API. We can use this on the server side and client side. There are abundant use case of this API. 
+HTTPS Request: 
+GET https://ipapi.co/{ip}/{format}/
+The endpoints parameter are -
+1. ip- an ip address which is used to get location.
+2. format - response data format. ex- json.
+Response: 
+We can get the IP -
+City, Region, Country, Country Code, Short country name, Country capital, Country area, Postal code, Latitude, Longitude, Time zone, Country calling code, Currency, Organization and more.
+We can also retrieve the specific field. https://ipapi.co/103.134.21.89/city/ The response is the city name of the specified IP address.
+//ip_tracker.php file - submitting ip address form and set the IP to session stroage
+    <script>
+        $(document).ready(function() {
+            $('#search').click(function() {
+                const ip = $('#ip-address').val();
+                sessionStorage.setItem("ip",ip);
+                // console.log("IP = ", ip);
+            })
+        })
+  </script>
+
+//ip_details.php file - getting ip from session stroage, call API and display reponse
+<script>
+        // get ip value from session storage
+        const ip = sessionStorage.getItem('ip');
+        const url = `https://ipapi.co/${ip}/json/`;
+
+        // api call and append to a container
+        let ipDetails = fetch(url)
+        .then(res=>res.json())
+        .then(data=>{
+            $('#ip').text(`IP: ${data.ip}`)
+            $('#details-list-container').append( $(` 
+            <li>City: ${data.city}</li>
+            <li>Region: ${data.region}</li>
+            <li>Country: ${data.country_name}</li>
+            <li>Country Area: ${data.country_area}</li>
+            <li>Postal Code: ${data.postal}</li>
+            <li>Calling Code: ${data.country_calling_code}</li>
+            <li>Longitude: ${data.longitude}</li>
+            <li>Latitude: ${data.latitude}</li>
+            <li>Org: ${data.org}</li>
+            <li>Hostname: ${data.hostname}</li>
+            `))
+        });
+    </script>
+
+Client's IP Address:
+It is usually used on the client side(browser). It returns the client IP's location. So we do not need to specify IP to the endpoints.
+HTTP Request:
+GET https://ipapi.co/{format}/
+Note: We retrieve only public IP locations using this API. We don't retrieve Private IP locations.
+Use Case
+It is easy to use. Now, the question is what is the use case of this open API service? Doing some research I have found some use cases -
+In our application, we have a form that is used for my application requirement to build a user profile and has the field of country, city, mobile, postal code, etc. of the user. Here we can easily use this API for a better experience for the user. When the user opens the form, API is called with the user IP address and those fields will be selected according to user IP locations.
+Our application provides different services in different cities. According to the user IP location, we can show only those services on our service section which are available in that city.
+
+I have mentioned those use cases and planning to build an extension. Apart from this, you will find abundant use cases. If you read this blog, please mentioned your thought on use case in the comment box.
